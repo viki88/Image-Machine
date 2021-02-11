@@ -7,7 +7,14 @@
 
     <fragment
         android:id="@+id/homeListFragment"
-        android:name="com.vikination.imagemachine.ui.HomeListFragment"
+        android:name="com.vikination.imagemachine.ui.home.HomeListFragment"
         android:label="fragment_home_list"
-        tools:layout="@layout/fragment_home_list" />
+        tools:layout="@layout/fragment_home_list" >
+        <action
+            android:id="@+id/action_homeListFragment_to_nav_dialog_addmachine"
+            app:destination="@id/nav_dialog_addmachine" />
+    </fragment>
+
+    <dialog android:id="@+id/nav_dialog_addmachine"
+        android:name="com.vikination.imagemachine.ui.addmachine.AddMachineDialogFragment"/>
 </navigation>

@@ -6,4 +6,9 @@
     <string name="code_reader">Code Reader</string>
     <string name="sort_by_name">Sort by Name</string>
     <string name="sort_by_type">Sort by Type</string>
+    <string name="add_new_machine">Add New Machine</string>
+    <string name="machine_name">Machine Name</string>
+    <string name="machine_type">Machine Type</string>
+    <string name="qrcode_number">QRCode Number</string>
+    <string name="add_machine">add machine</string>
 </resources>
