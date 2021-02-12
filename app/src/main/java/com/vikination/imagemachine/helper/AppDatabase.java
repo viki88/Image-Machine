@@ -5,8 +5,10 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
 import com.vikination.imagemachine.dao.MachineDao;
+import com.vikination.imagemachine.model.Converters;
 import com.vikination.imagemachine.model.Machine;
 
 import java.util.concurrent.Executor;
@@ -14,6 +16,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Database(entities = {Machine.class}, version = 1)
+@TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
     public abstract MachineDao machineDao();
     private static AppDatabase instance;

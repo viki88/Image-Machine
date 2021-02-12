@@ -8,13 +8,35 @@
     <fragment
         android:id="@+id/homeListFragment"
         android:name="com.vikination.imagemachine.ui.home.HomeListFragment"
-        android:label="fragment_home_list"
         tools:layout="@layout/fragment_home_list" >
         <action
             android:id="@+id/action_homeListFragment_to_nav_dialog_addmachine"
             app:destination="@id/nav_dialog_addmachine" />
+        <action
+            android:id="@+id/action_homeListFragment_to_detailMachineFragment"
+            app:destination="@id/detailMachineFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <dialog android:id="@+id/nav_dialog_addmachine"
         android:name="com.vikination.imagemachine.ui.addmachine.AddMachineDialogFragment"/>
+
+    <fragment
+        android:id="@+id/detailMachineFragment"
+        android:name="com.vikination.imagemachine.ui.detail.DetailMachineFragment"
+        >
+        <action
+            android:id="@+id/action_detailMachineFragment_to_datePickerFragment"
+            app:destination="@id/datePickerFragment" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/datePickerFragment"
+        android:name="com.vikination.imagemachine.ui.detail.DatePickerFragment"
+        android:label="DatePickerFragment" />
+
+
 </navigation>

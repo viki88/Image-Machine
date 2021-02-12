@@ -4,6 +4,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.Date;
+
 @Entity
 public class Machine{
     @PrimaryKey(autoGenerate = true)
@@ -22,7 +24,7 @@ public class Machine{
     public String qrNumber;
 
     @ColumnInfo(name = "lastmodified")
-    public String lastModified = "";
+    public Date lastModified;
 
     @ColumnInfo(name = "imagePaths")
     public String imagePaths = "";

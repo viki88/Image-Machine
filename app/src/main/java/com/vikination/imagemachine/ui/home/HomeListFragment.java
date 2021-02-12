@@ -14,12 +14,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.vikination.imagemachine.R;
 import com.vikination.imagemachine.databinding.FragmentHomeListBinding;
 import com.vikination.imagemachine.model.Machine;
+import com.vikination.imagemachine.ui.MainActivity;
 import com.vikination.imagemachine.ui.addmachine.AddMachineViewModel;
 
 public class HomeListFragment extends Fragment implements OnClickMachineItemListener{
@@ -38,6 +40,8 @@ public class HomeListFragment extends Fragment implements OnClickMachineItemList
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ((MainActivity)getActivity()).setToolbarTitle("Image Machine");
+        ((MainActivity)getActivity()).setVisibleMenu(true);
         viewModel = new ViewModelProvider(requireActivity()).get(AddMachineViewModel.class);
         setupList();
         binding.fabMachine.setOnClickListener(view1 ->
@@ -61,7 +65,9 @@ public class HomeListFragment extends Fragment implements OnClickMachineItemList
 
     @Override
     public void onClickMachine(Machine machine) {
-        Toast.makeText(requireContext(), "machine name :"+machine.name+", machine type :"+machine.type, Toast.LENGTH_SHORT).show();
+        Bundle bundle = new Bundle();
+        bundle.putInt("machine_id", machine.uid);
+        NavHostFragment.findNavController(this).navigate(R.id.action_homeListFragment_to_detailMachineFragment, bundle);
     }
 
     @Override

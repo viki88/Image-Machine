@@ -1,6 +1,8 @@
 package com.vikination.imagemachine.repository;
 
 import android.app.Application;
+import android.app.DatePickerDialog;
+import android.widget.DatePicker;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -35,6 +37,19 @@ public class MachineRepository {
         AppDatabase.databaseWriterExecutor.execute(() ->{
             machines = machineDao.getAllMachine();
             sort();
+        });
+    }
+
+    public void getMachineById(int uid){
+        AppDatabase.databaseWriterExecutor.execute(() -> {
+            machineLiveData.postValue(machineDao.getMachineById(uid));
+        });
+    }
+
+    public void updateMachine(Machine machine){
+        AppDatabase.databaseWriterExecutor.execute(() -> {
+            machineDao.updateMachine(machine);
+            machineLiveData.postValue(machineDao.getMachineById(machine.uid));
         });
     }
 
