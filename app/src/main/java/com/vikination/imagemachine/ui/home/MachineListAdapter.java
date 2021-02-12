@@ -4,18 +4,23 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vikination.imagemachine.databinding.LayoutRowMachineBinding;
 import com.vikination.imagemachine.model.Machine;
 
-public class MachineListAdapter extends ListAdapter<Machine, MachineListAdapter.MachineViewHolder> {
+import java.util.Collections;
+import java.util.List;
 
-    protected MachineListAdapter() {
-        super(new MachineDiff());
+public class MachineListAdapter extends RecyclerView.Adapter<MachineListAdapter.MachineViewHolder> {
+
+    private final OnClickMachineItemListener onClickMachineItemListener;
+
+    public MachineListAdapter(OnClickMachineItemListener onClickMachineItemListener){
+        this.onClickMachineItemListener = onClickMachineItemListener;
     }
+
+    private List<Machine> machines = Collections.emptyList();
 
     @NonNull
     @Override
@@ -26,7 +31,17 @@ public class MachineListAdapter extends ListAdapter<Machine, MachineListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MachineViewHolder holder, int position) {
-        holder.bind(getItem(position));
+        holder.bind(machines.get(position), onClickMachineItemListener);
+    }
+
+    @Override
+    public int getItemCount() {
+        return machines.size();
+    }
+
+    public void updateData(List<Machine> machines){
+        this.machines = machines;
+        notifyDataSetChanged();
     }
 
     static class MachineViewHolder extends RecyclerView.ViewHolder {
@@ -37,23 +52,15 @@ public class MachineListAdapter extends ListAdapter<Machine, MachineListAdapter.
             this.binding = binding;
         }
 
-        public void bind(Machine machine){
+        public void bind(Machine machine, OnClickMachineItemListener onClickMachineItemListener){
+            binding.layoutRow.setOnClickListener(view -> onClickMachineItemListener.onClickMachine(machine));
+            binding.layoutRow.setOnLongClickListener(view -> {
+                onClickMachineItemListener.onLongClickMachine(machine);
+                return true;
+            });
             binding.textIdmachine.setText(machine.machineId);
             binding.textName.setText(machine.name);
             binding.textType.setText(machine.type);
-        }
-    }
-
-    static class MachineDiff extends DiffUtil.ItemCallback<Machine>{
-
-        @Override
-        public boolean areItemsTheSame(@NonNull Machine oldItem, @NonNull Machine newItem) {
-            return oldItem == newItem;
-        }
-
-        @Override
-        public boolean areContentsTheSame(@NonNull Machine oldItem, @NonNull Machine newItem) {
-            return oldItem.machineId.equals(newItem.machineId);
         }
     }
 }

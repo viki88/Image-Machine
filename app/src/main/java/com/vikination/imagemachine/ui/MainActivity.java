@@ -1,19 +1,20 @@
 package com.vikination.imagemachine.ui;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
-import android.widget.PopupWindow;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.vikination.imagemachine.R;
 import com.vikination.imagemachine.databinding.ActivityMainBinding;
+import com.vikination.imagemachine.ui.home.HomeListFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,14 +58,20 @@ public class MainActivity extends AppCompatActivity {
         popupMenu.getMenuInflater().inflate(R.menu.sort_menu, popupMenu.getMenu());
         popupMenu.setOnMenuItemClickListener(menuItem -> {
             int menuId = menuItem.getItemId();
+            Fragment currentFragment = getCurrentFragment();
             if (menuId == R.id.sort_by_name){
-                Toast.makeText(MainActivity.this, "sort by name", Toast.LENGTH_SHORT).show();
+                if (currentFragment instanceof HomeListFragment) ((HomeListFragment) currentFragment).sorting(true);
                 return true;
             }else if (menuId == R.id.sort_by_type){
-                Toast.makeText(MainActivity.this, "sort by type", Toast.LENGTH_SHORT).show();
+                if (currentFragment instanceof HomeListFragment) ((HomeListFragment) currentFragment).sorting(false);
                 return true;
             }else return false;
         });
         popupMenu.show();
+    }
+
+    private Fragment getCurrentFragment(){
+        Fragment navHostFragment = getSupportFragmentManager().findFragmentById(R.id.main_fragmentview);
+        return navHostFragment.getChildFragmentManager().getFragments().get(0);
     }
 }

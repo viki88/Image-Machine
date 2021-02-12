@@ -29,4 +29,13 @@ public class AddMachineViewModel extends AndroidViewModel {
     public void fetchAllMachineData(){
         machineRepository.getAllMachineData();
     }
+
+    public void deleteMachineData(Machine machine){
+        machineRepository.deleteMachineData(machine);
+    }
+
+    public void sortData(Boolean isSortByName){
+        machineRepository.sort(isSortByName);
+    }
+
 }

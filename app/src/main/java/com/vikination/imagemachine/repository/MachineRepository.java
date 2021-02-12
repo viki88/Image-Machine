@@ -9,12 +9,15 @@ import com.vikination.imagemachine.dao.MachineDao;
 import com.vikination.imagemachine.helper.AppDatabase;
 import com.vikination.imagemachine.model.Machine;
 
+import java.util.Collections;
 import java.util.List;
 
 public class MachineRepository {
 
     MachineDao machineDao;
-    private MutableLiveData<List<Machine>> machineLiveData = new MutableLiveData<>();
+    private List<Machine> machines;
+    private final MutableLiveData<List<Machine>> machineLiveData = new MutableLiveData<>();
+    private Boolean isSortByName = true;
 
     public MachineRepository(Application application){
         machineDao = AppDatabase.getInstance(application).machineDao();
@@ -23,18 +26,47 @@ public class MachineRepository {
     public void addMachineData(Machine machine){
         AppDatabase.databaseWriterExecutor.execute(() -> {
             machineDao.addMachine(machine);
-            machineLiveData.postValue(machineDao.getAllMachine());
+            machines = machineDao.getAllMachine();
+            sort();
         });
     }
 
     public void getAllMachineData(){
         AppDatabase.databaseWriterExecutor.execute(() ->{
-            machineLiveData.postValue(machineDao.getAllMachine());
+            machines = machineDao.getAllMachine();
+            sort();
+        });
+    }
+
+    public void deleteMachineData(Machine machine){
+        AppDatabase.databaseWriterExecutor.execute(() -> {
+            machineDao.deleteMachine(machine);
+            machines = machineDao.getAllMachine();
+            sort();
         });
     }
 
     public LiveData<List<Machine>> getMachineLiveData() {
         return machineLiveData;
+    }
+
+    private void sort(){
+        if (isSortByName) sortByName(); else sortByType();
+    }
+
+    public void sort(Boolean isSortByName){
+        this.isSortByName = isSortByName;
+        sort();
+    }
+
+    private void sortByName(){
+        Collections.sort(machines, (machine, t1) -> machine.name.compareToIgnoreCase(t1.name));
+        machineLiveData.postValue(machines);
+    }
+
+    private void sortByType(){
+        Collections.sort(machines, (machine, t1) -> machine.type.compareToIgnoreCase(t1.type));
+        machineLiveData.postValue(machines);
     }
 
 }
