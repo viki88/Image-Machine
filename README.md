@@ -46,7 +46,7 @@ To show Detail of Machine Group click each item to open Detail Screen, in this s
 On the Right image that is condition after you click button Machine Image and choose Image that associate with Machine Group, you can choose multiple image max 10 image.
 
 ### Delete Image 
-![Machine detail filled](/assets/Machine_image_after_pickimage.png)  ![Delete image menu](/assets/Machine_image_delete_image_confirm.png)
+![Machine detail filled](/assets/Machine_image_after_pickimage.png)  ![Selected item_delete](/assets/Machine_detail_select_deleted_image.png)  ![Delete image menu](/assets/Machine_image_delete_image_confirm.png)
 
 To Delete Image long press on image then delete menu icon on toolbar appear after that you can choose other image that you want delete then click delete menu, image is deleted.
 If you want to abort delete image click "x" icon.
