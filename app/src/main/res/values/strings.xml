@@ -12,4 +12,5 @@
     <string name="qrcode_number">QRCode Number</string>
     <string name="add_machine">add machine</string>
     <string name="rescan">rescan</string>
+    <string name="update_machine">Update machine</string>
 </resources>

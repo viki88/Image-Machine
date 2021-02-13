@@ -83,6 +83,7 @@ public class DetailMachineFragment extends Fragment implements OnThumbnailClickL
         binding.textMachineType.setText(String.format("Machine Type : \n%s", machine.type));
         binding.textMachineQrNumber.setText(String.format("Machine QR Number : \n%s", machine.qrNumber));
         uris.clear();
+        images.clear();
         if (!machine.imagePaths.isEmpty()){
             uris = getListUri(machine.imagePaths);
             images = new ArrayList<>();

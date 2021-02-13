@@ -1,4 +1,4 @@
-package com.vikination.imagemachine.ui.addmachine;
+package com.vikination.imagemachine.ui.home;
 
 import android.app.Application;
 
@@ -11,12 +11,12 @@ import com.vikination.imagemachine.repository.MachineRepository;
 
 import java.util.List;
 
-public class AddMachineViewModel extends AndroidViewModel {
+public class HomeViewModel extends AndroidViewModel {
 
     MachineRepository machineRepository;
     public LiveData<List<Machine>> machineLiveData;
 
-    public AddMachineViewModel(@NonNull Application application) {
+    public HomeViewModel(@NonNull Application application) {
         super(application);
         machineRepository = new MachineRepository(application);
         machineLiveData = machineRepository.getMachineLiveData();
@@ -36,6 +36,14 @@ public class AddMachineViewModel extends AndroidViewModel {
 
     public void sortData(Boolean isSortByName){
         machineRepository.sort(isSortByName);
+    }
+
+    public void getMachineDataById(int uid){
+        machineRepository.getMachineById(uid);
+    }
+
+    public void updateMachine(Machine machine){
+        machineRepository.updateEditMachine(machine);
     }
 
 }

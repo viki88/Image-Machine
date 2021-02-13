@@ -19,6 +19,9 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_homeListFragment_to_updateMachineFragment"
+            app:destination="@id/updateMachineFragment" />
     </fragment>
 
     <dialog android:id="@+id/nav_dialog_addmachine"
@@ -45,6 +48,10 @@
         android:id="@+id/fullScreenImageFragment"
         android:name="com.vikination.imagemachine.ui.fullscreenimage.FullScreenImageFragment"
         android:label="FullScreenImageFragment" />
+    <dialog
+        android:id="@+id/updateMachineFragment"
+        android:name="com.vikination.imagemachine.ui.updatemachine.UpdateMachineFragment"
+        />
 
 
 </navigation>

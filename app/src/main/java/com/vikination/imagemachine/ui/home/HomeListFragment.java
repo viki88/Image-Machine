@@ -14,18 +14,18 @@ import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.vikination.imagemachine.R;
 import com.vikination.imagemachine.databinding.FragmentHomeListBinding;
 import com.vikination.imagemachine.model.Machine;
 import com.vikination.imagemachine.ui.MainActivity;
-import com.vikination.imagemachine.ui.addmachine.AddMachineViewModel;
 
 public class HomeListFragment extends Fragment implements OnClickMachineItemListener{
 
     FragmentHomeListBinding binding;
     MachineListAdapter adapter;
-    AddMachineViewModel viewModel;
+    HomeViewModel viewModel;
 
     @Nullable
     @Override
@@ -39,12 +39,14 @@ public class HomeListFragment extends Fragment implements OnClickMachineItemList
         super.onViewCreated(view, savedInstanceState);
         ((MainActivity)getActivity()).setToolbarTitle("Image Machine");
         ((MainActivity)getActivity()).setVisibleMenu(true);
-        viewModel = new ViewModelProvider(requireActivity()).get(AddMachineViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(HomeViewModel.class);
         setupList();
+        binding.swipeList.setOnRefreshListener(() -> viewModel.fetchAllMachineData());
         binding.fabMachine.setOnClickListener(view1 ->
                 Navigation.findNavController(view1).navigate(R.id.action_homeListFragment_to_nav_dialog_addmachine));
         viewModel.machineLiveData.observe(getViewLifecycleOwner(), machines ->{
                     adapter.updateData(machines);
+                    binding.swipeList.setRefreshing(false);
                 });
         viewModel.fetchAllMachineData();
     }
@@ -81,7 +83,9 @@ public class HomeListFragment extends Fragment implements OnClickMachineItemList
 
     @Override
     public void onClickEditMachine(Machine machine) {
-
+        Bundle bundle = new Bundle();
+        bundle.putInt("uid", machine.uid);
+        Navigation.findNavController(binding.fabMachine).navigate(R.id.action_homeListFragment_to_updateMachineFragment, bundle);
     }
 
     public void resultQrCode(String qrcode){

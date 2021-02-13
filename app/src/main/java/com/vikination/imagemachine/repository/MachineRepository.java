@@ -57,6 +57,14 @@ public class MachineRepository {
         });
     }
 
+    public void updateEditMachine(Machine machine){
+        AppDatabase.databaseWriterExecutor.execute(() -> {
+            machineDao.updateMachine(machine);
+            machines = machineDao.getAllMachine();
+            sort();
+        });
+    }
+
     public void deleteMachineData(Machine machine){
         AppDatabase.databaseWriterExecutor.execute(() -> {
             machineDao.deleteMachine(machine);
