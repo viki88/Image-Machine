@@ -45,6 +45,7 @@ public class HomeListFragment extends Fragment implements OnClickMachineItemList
         binding.fabMachine.setOnClickListener(view1 ->
                 Navigation.findNavController(view1).navigate(R.id.action_homeListFragment_to_nav_dialog_addmachine));
         viewModel.machineLiveData.observe(getViewLifecycleOwner(), machines ->{
+                    setVisibilitList(!machines.isEmpty());
                     adapter.updateData(machines);
                     binding.swipeList.setRefreshing(false);
                 });
@@ -56,6 +57,16 @@ public class HomeListFragment extends Fragment implements OnClickMachineItemList
         binding.rvMachineImage.setAdapter(adapter);
         binding.rvMachineImage.setLayoutManager(new LinearLayoutManager(requireActivity()));
         binding.rvMachineImage.addItemDecoration(new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL));
+    }
+
+    private void setVisibilitList(Boolean isListVisible){
+        if (isListVisible){
+            binding.swipeList.setVisibility(View.VISIBLE);
+            binding.emptyText.setVisibility(View.GONE);
+        }else {
+            binding.swipeList.setVisibility(View.GONE);
+            binding.emptyText.setVisibility(View.VISIBLE);
+        }
     }
 
     public void sorting(Boolean isSortByName){
