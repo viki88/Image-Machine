@@ -54,11 +54,7 @@ public class MachineListAdapter extends RecyclerView.Adapter<MachineListAdapter.
 
         public void bind(Machine machine, OnClickMachineItemListener onClickMachineItemListener){
             binding.layoutRow.setOnClickListener(view -> onClickMachineItemListener.onClickMachine(machine));
-            binding.layoutRow.setOnLongClickListener(view -> {
-                onClickMachineItemListener.onLongClickMachine(machine);
-                return true;
-            });
-            binding.textIdmachine.setText(machine.machineId);
+            binding.buttonDelete.setOnClickListener(view -> onClickMachineItemListener.onClickDeleteMachine(machine));
             binding.textName.setText(machine.name);
             binding.textType.setText(machine.type);
         }

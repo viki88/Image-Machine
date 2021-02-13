@@ -1,12 +1,9 @@
 package com.vikination.imagemachine.ui.home;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -71,7 +68,7 @@ public class HomeListFragment extends Fragment implements OnClickMachineItemList
     }
 
     @Override
-    public void onLongClickMachine(Machine machine) {
+    public void onClickDeleteMachine(Machine machine) {
         new AlertDialog.Builder(requireContext())
                 .setTitle("Delete Machine Item")
                 .setMessage(String.format("Are you sure want to delete %s ?", machine.name))
@@ -80,6 +77,11 @@ public class HomeListFragment extends Fragment implements OnClickMachineItemList
                     dialogInterface.dismiss();
                 })
                 .setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.dismiss()).create().show();
+    }
+
+    @Override
+    public void onClickEditMachine(Machine machine) {
+
     }
 
     public void resultQrCode(String qrcode){
