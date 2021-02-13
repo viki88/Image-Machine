@@ -12,6 +12,8 @@ Android Image Grouping Application
 ### Home Screen
 ![Home Screen](/assets/Home_EmptyList.png) ![Home Screen Filled](/assets/Home_filled_list.png)
 
+In this screen has two menu Scan QRCode and sorting menu, and Button "plus" to add new machine group
+
 ## Prototype
 Prototype using Figma in this [link](https://www.figma.com/proto/B1yr7jcdSUJhlmtReBQtyV/Untitled?node-id=3%3A10&scaling=scale-down)
 
