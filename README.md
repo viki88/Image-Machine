@@ -10,7 +10,7 @@ Android Image Grouping Application
 
 ## Preview
 ### Home Screen
-![Home Screen](https://ibb.co/RcCG4Px) ![Home Screen Filled](https://ibb.co/GpT9YgV)
+![Home Screen](/assets/Home_EmptyList.png) ![Home Screen Filled](https://ibb.co/GpT9YgV)
 
 ## Prototype
 Prototype using Figma in this [link](https://www.figma.com/proto/B1yr7jcdSUJhlmtReBQtyV/Untitled?node-id=3%3A10&scaling=scale-down)
