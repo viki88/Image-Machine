@@ -10,7 +10,7 @@ Android Image Grouping Application
 
 ## Preview
 ### Home Screen
-![Home Screen](/assets/Home_EmptyList.png) ![Home Screen Filled](Home_filled_list.png)
+![Home Screen](/assets/Home_EmptyList.png) ![Home Screen Filled](/assets/Home_filled_list.png)
 
 ## Prototype
 Prototype using Figma in this [link](https://www.figma.com/proto/B1yr7jcdSUJhlmtReBQtyV/Untitled?node-id=3%3A10&scaling=scale-down)
