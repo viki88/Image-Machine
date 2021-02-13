@@ -1,6 +1,8 @@
 package com.vikination.imagemachine.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -16,14 +19,18 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.gson.Gson;
 import com.vikination.imagemachine.R;
 import com.vikination.imagemachine.databinding.ActivityMainBinding;
+import com.vikination.imagemachine.ui.detail.DetailMachineFragment;
 import com.vikination.imagemachine.ui.home.HomeListFragment;
+import com.vikination.imagemachine.ui.qrscanner.QrScannerActivity;
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
     private Boolean isMenuVisible = true;
+    private static final int QR_SCANNER_REQUEST = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +71,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int menuId = item.getItemId();
         if (menuId == R.id.scan_menu){
-            Toast.makeText(this, "scan menu clicked", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, QrScannerActivity.class);
+            startActivityForResult(intent, QR_SCANNER_REQUEST);
             return true;
         }else if (menuId == R.id.sort_menu){
             showSortMenu();
@@ -93,5 +101,16 @@ public class MainActivity extends AppCompatActivity {
     private Fragment getCurrentFragment(){
         Fragment navHostFragment = getSupportFragmentManager().findFragmentById(R.id.main_fragmentview);
         return navHostFragment.getChildFragmentManager().getFragments().get(0);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == QR_SCANNER_REQUEST){
+            if (resultCode == RESULT_OK){
+                String qrdata = data.getStringExtra("qrdata");
+                ((HomeListFragment) getCurrentFragment()).resultQrCode(qrdata);
+            }
+        }
     }
 }

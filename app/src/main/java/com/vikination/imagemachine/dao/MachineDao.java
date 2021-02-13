@@ -25,6 +25,9 @@ public interface MachineDao {
     @Query("SELECT * FROM MACHINE WHERE uid =:machineId")
     List<Machine> getMachineById(int machineId);
 
+    @Query("SELECT * FROM MACHINE WHERE qrnumber =:qrcode")
+    List<Machine> getMachineByQrNumber(String qrcode);
+
     @Update
     void updateMachine(Machine machine);
 }

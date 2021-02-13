@@ -31,12 +31,20 @@
         <action
             android:id="@+id/action_detailMachineFragment_to_datePickerFragment"
             app:destination="@id/datePickerFragment" />
+        <action
+            android:id="@+id/action_detailMachineFragment_to_fullScreenImageFragment"
+            app:destination="@id/fullScreenImageFragment" />
     </fragment>
 
     <dialog
         android:id="@+id/datePickerFragment"
         android:name="com.vikination.imagemachine.ui.detail.DatePickerFragment"
         android:label="DatePickerFragment" />
+
+    <fragment
+        android:id="@+id/fullScreenImageFragment"
+        android:name="com.vikination.imagemachine.ui.fullscreenimage.FullScreenImageFragment"
+        android:label="FullScreenImageFragment" />
 
 
 </navigation>

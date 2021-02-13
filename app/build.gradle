@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.vikination.imagemachine"
-        minSdkVersion 17
+        minSdkVersion 19
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -57,5 +57,14 @@ dependencies {
 
     //Gson
     implementation 'com.google.code.gson:gson:2.8.6'
+
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+
+    implementation 'com.github.esafirm.android-image-picker:imagepicker:2.4.1'
+
+    implementation 'com.budiyev.android:code-scanner:2.1.0'
+
 
 }

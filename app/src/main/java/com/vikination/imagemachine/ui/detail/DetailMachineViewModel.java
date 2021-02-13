@@ -31,6 +31,10 @@ public class DetailMachineViewModel extends AndroidViewModel {
         machineRepository.getMachineById(uid);
     }
 
+    public void getMachineDataByQrNumber(String qrnumber){
+        machineRepository.getMachineByQRNumber(qrnumber);
+    }
+
     public void updateMachine(Machine machine){
         machineRepository.updateMachine(machine);
     }

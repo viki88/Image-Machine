@@ -81,4 +81,10 @@ public class HomeListFragment extends Fragment implements OnClickMachineItemList
                 })
                 .setNegativeButton("Cancel", (dialogInterface, i) -> dialogInterface.dismiss()).create().show();
     }
+
+    public void resultQrCode(String qrcode){
+        Bundle bundle = new Bundle();
+        bundle.putString("qrnumber", qrcode);
+        NavHostFragment.findNavController(this).navigate(R.id.action_homeListFragment_to_detailMachineFragment, bundle);
+    }
 }

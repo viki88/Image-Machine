@@ -45,6 +45,19 @@
         android:layout_marginTop="8dp"
         android:textColor="@color/black"/>
 
+    <TextView
+        android:id="@+id/text_machineQrNumber"
+        android:text="Machine Qr Number : Number"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_machineType"
+        app:layout_constraintVertical_bias="0.0"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/black"/>
+
     <LinearLayout
         android:id="@+id/layout_machinelastupdate"
         android:layout_width="0dp"
@@ -53,7 +66,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_machineType"
+        app:layout_constraintTop_toBottomOf="@+id/text_machineQrNumber"
         app:layout_constraintVertical_bias="0.0"
         android:layout_marginTop="8dp">
         <TextView
@@ -80,6 +93,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_machinelastupdate"
+        app:layout_constraintVertical_bias="0.0"
+        android:layout_marginTop="16dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_machine_thumb"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/machineimage_button"
         app:layout_constraintVertical_bias="0.0"
         android:layout_marginTop="16dp"/>
 

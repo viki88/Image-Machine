@@ -11,4 +11,5 @@
     <string name="machine_type">Machine Type</string>
     <string name="qrcode_number">QRCode Number</string>
     <string name="add_machine">add machine</string>
+    <string name="rescan">rescan</string>
 </resources>

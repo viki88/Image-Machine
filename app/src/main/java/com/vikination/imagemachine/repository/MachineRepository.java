@@ -46,6 +46,10 @@ public class MachineRepository {
         });
     }
 
+    public void getMachineByQRNumber(String qrNumber){
+        AppDatabase.databaseWriterExecutor.execute(() -> machineLiveData.postValue(machineDao.getMachineByQrNumber(qrNumber)));
+    }
+
     public void updateMachine(Machine machine){
         AppDatabase.databaseWriterExecutor.execute(() -> {
             machineDao.updateMachine(machine);
