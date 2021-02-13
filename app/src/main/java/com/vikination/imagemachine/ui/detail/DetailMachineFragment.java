@@ -1,5 +1,7 @@
 package com.vikination.imagemachine.ui.detail;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,6 +42,8 @@ public class DetailMachineFragment extends Fragment implements OnThumbnailClickL
     Machine machine;
     ImageThumbAdapter imageThumbAdapter;
     ArrayList<String> uris = new ArrayList<>();
+    ArrayList<com.vikination.imagemachine.model.Image> images = new ArrayList<>();
+    Boolean isDeleteMode = false;
 
     @Nullable
     @Override
@@ -81,7 +85,13 @@ public class DetailMachineFragment extends Fragment implements OnThumbnailClickL
         uris.clear();
         if (!machine.imagePaths.isEmpty()){
             uris = getListUri(machine.imagePaths);
-            imageThumbAdapter.updateData(uris);
+            images = new ArrayList<>();
+            for (int i = 0; i < uris.size(); i++){
+                com.vikination.imagemachine.model.Image image = new com.vikination.imagemachine.model.Image();
+                image.uri = uris.get(i);
+                images.add(image);
+            }
+            imageThumbAdapter.updateData(images);
         }
         Date date = machine.lastModified;
         String lastModifiedText = "Not set";
@@ -111,7 +121,13 @@ public class DetailMachineFragment extends Fragment implements OnThumbnailClickL
                 if (!uris.contains(images.get(i).getPath())) uris.add(images.get(i).getPath());
             }
         }
-        imageThumbAdapter.updateData(uris);
+        images = new ArrayList<>();
+        for (int i = 0; i < uris.size(); i++){
+            com.vikination.imagemachine.model.Image image = new com.vikination.imagemachine.model.Image();
+            image.uri = uris.get(i);
+            images.add(image);
+        }
+        imageThumbAdapter.updateData(images);
         machine.imagePaths = new Gson().toJson(uris);
         viewModel.updateMachine(machine);
         super.onActivityResult(requestCode, resultCode, data);
@@ -119,13 +135,81 @@ public class DetailMachineFragment extends Fragment implements OnThumbnailClickL
 
     @Override
     public void onClickThumbnail(String uri) {
-        Bundle bundle = new Bundle();
-        bundle.putString("uri",uri);
-        NavHostFragment.findNavController(this).navigate(R.id.action_detailMachineFragment_to_fullScreenImageFragment,bundle);
+        if (isDeleteMode){
+            updateSelectedCheck(uri, true);
+        }else {
+            Bundle bundle = new Bundle();
+            bundle.putString("uri",uri);
+            NavHostFragment.findNavController(this).navigate(R.id.action_detailMachineFragment_to_fullScreenImageFragment,bundle);
+        }
+    }
+
+    @Override
+    public void onLongClickThumbnail(com.vikination.imagemachine.model.Image image) {
+        if (!isDeleteMode){
+            ((MainActivity)getActivity()).setDeleteImageMenu(true);
+            updateSelectedCheck(image.uri, true);
+            isDeleteMode = true;
+        }
     }
 
     private ArrayList<String> getListUri(String string){
         Type type = new TypeToken<ArrayList<String>>() {}.getType();
         return new Gson().fromJson(string, type);
+    }
+
+    public void clearDeleteMode(){
+        isDeleteMode = false;
+        clearCheck();
+    }
+
+    private void clearCheck(){
+        for (int i = 0; i < images.size(); i++) {
+            com.vikination.imagemachine.model.Image image = images.get(i);
+            image.isSelected = false;
+        }
+        imageThumbAdapter.updateData(images);
+    }
+
+    private void updateSelectedCheck(String uri, Boolean check){
+        for (int i = 0; i < images.size(); i++) {
+            com.vikination.imagemachine.model.Image image = images.get(i);
+            if (image.uri.equals(uri)) {
+                if (image.isSelected == check) image.isSelected = !check;
+                else image.isSelected = check;
+            }
+        }
+        imageThumbAdapter.updateData(images);
+    }
+
+    public void showAlertDelete(){
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Delete Selected Image")
+                .setMessage("Are sure want to delete this image(s)?")
+                .setPositiveButton("yes", (dialogInterface, i) -> {
+                    dialogInterface.dismiss();
+                    deleteSelectedImage();
+                })
+                .setNegativeButton("cancel", (dialogInterface, i) -> dialogInterface.dismiss()).create().show();
+    }
+
+    private void deleteSelectedImage(){
+        ArrayList<com.vikination.imagemachine.model.Image> deletedImages = new ArrayList<>();
+        ArrayList<String> deletedUris = new ArrayList<>();
+        for (com.vikination.imagemachine.model.Image image : images) {
+            if (image.isSelected) {
+                for (String uri: uris) {
+                    if (uri.equals(image.uri)) deletedUris.add(uri);
+                }
+                deletedImages.add(image);
+            }
+        }
+        images.removeAll(deletedImages);
+        uris.removeAll(deletedUris);
+        imageThumbAdapter.updateData(images);
+        machine.imagePaths = new Gson().toJson(uris);
+        viewModel.updateMachine(machine);
+        isDeleteMode = false;
+        ((MainActivity)getActivity()).setDeleteImageMenu(false);
     }
 }

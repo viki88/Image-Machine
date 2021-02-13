@@ -2,24 +2,20 @@ package com.vikination.imagemachine.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.google.gson.Gson;
 import com.vikination.imagemachine.R;
 import com.vikination.imagemachine.databinding.ActivityMainBinding;
 import com.vikination.imagemachine.ui.detail.DetailMachineFragment;
@@ -30,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
     private Boolean isMenuVisible = true;
+    private Boolean isDeleteImageVisible = false;
     private static final int QR_SCANNER_REQUEST = 10;
 
     @Override
@@ -60,10 +57,18 @@ public class MainActivity extends AppCompatActivity {
         invalidateOptionsMenu();
     }
 
+    public void setDeleteImageMenu(Boolean visibleMenu){
+        isDeleteImageVisible = visibleMenu;
+        invalidateOptionsMenu();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_home, menu);
-        for (int i = 0; i < menu.size(); i++) menu.getItem(i).setVisible(isMenuVisible);
+        menu.getItem(0).setVisible(isMenuVisible); // qrscan menu
+        menu.getItem(1).setVisible(isMenuVisible); // sort menu
+        menu.getItem(2).setVisible(isDeleteImageVisible); // delete menu
+        menu.getItem(3).setVisible(isDeleteImageVisible); // close menu
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -76,6 +81,15 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }else if (menuId == R.id.sort_menu){
             showSortMenu();
+            return true;
+        }else if (menuId == R.id.close_delete){
+            setDeleteImageMenu(false);
+            DetailMachineFragment detailMachineFragment = (DetailMachineFragment)getCurrentFragment();
+            detailMachineFragment.clearDeleteMode();
+            return true;
+        }else if(menuId == R.id.delete_menu){
+            DetailMachineFragment detailMachineFragment = (DetailMachineFragment)getCurrentFragment();
+            detailMachineFragment.showAlertDelete();
             return true;
         }else return super.onOptionsItemSelected(item);
     }

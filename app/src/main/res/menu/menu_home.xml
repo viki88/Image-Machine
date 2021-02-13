@@ -10,4 +10,14 @@
         android:title="@string/sort_list"
         android:icon="@drawable/ic_sort"
         app:showAsAction="always"/>
+
+    <item android:id="@+id/delete_menu"
+        android:title="Delete Image(s)"
+        android:icon="@drawable/ic_delete"
+        app:showAsAction="always"/>
+
+    <item android:id="@+id/close_delete"
+        android:title="Close delete"
+        android:icon="@drawable/ic_close"
+        app:showAsAction="always"/>
 </menu>
