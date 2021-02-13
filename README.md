@@ -39,12 +39,27 @@ To Delete Maching Group on the list click icon delete then we see Delete Alert D
 List on the Home Screen is default sort by Machine Name, if you want to sort by type you can choose "sort by type" on soring icon menu. 
 
 ### Show Detail Machine Group
-![Maching Detail](/assets/machine_detail.png)  ![Machine detail filled](/assets/Machine_image_after_pickimage.png)
+![Machine Detail](/assets/machine_detail.png)  ![Machine detail filled](/assets/Machine_image_after_pickimage.png)
 
 To show Detail of Machine Group click each item to open Detail Screen, in this screen you can see all detail of Machine Detail, there is Machine Id, Machine Name, Machine QRNumber, Maching Last Updated, and Machine Image
 
+On the Right image that is condition after you click button Machine Image and choose Image that associate with Machine Group, you can choose multiple image max 10 image.
 
+### Delete Image 
+![Machine detail filled](/assets/Machine_image_after_pickimage.png)  ![Delete image menu](/assets/Machine_detail_select_deleted_image.png)
+
+To Delete Image long press on image then delete menu icon on toolbar appear after that you can choose other image that you want delete then click delete menu, image is deleted.
+If you want to abort delete image click "x" icon.
+
+### Scan QRCode Number
+![Scanner Screen](/assets/Scanner_screen.png)  ![detail machine](/assets/Machine_image_after_pickimage.png)
+
+You can scan QRCode Number of Machine Group QR Number, if QRNumber is match with one of your Machine Group QRNumber, this app will show directly to Machine detail.  
+
+### Additional Info and Feature
+- this app have not to use Internet connection, all data saved locally.
+- image that you add and delete will not delete master image data.
 
 ## Prototype
-Prototype using Figma in this [link](https://www.figma.com/proto/B1yr7jcdSUJhlmtReBQtyV/Untitled?node-id=3%3A10&scaling=scale-down)
+Prototype of this app is using Figma, for trying how this app work visit in this [link](https://www.figma.com/proto/B1yr7jcdSUJhlmtReBQtyV/Untitled?node-id=3%3A10&scaling=scale-down)
 
